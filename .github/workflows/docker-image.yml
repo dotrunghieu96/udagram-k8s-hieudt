@@ -1,0 +1,39 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          
+      - name: Build and tag docker images
+        run:
+          docker-compose -f docker-compose-build.yaml build
+          && docker tag udagram-api-feed:latest dotrunghieu96/udagram-api-feed:$(date +%s)
+          && docker tag udagram-api-user:latest dotrunghieu96/udagram-api-user:$(date +%s)
+          && docker tag udagram-frontend:local dotrunghieu96/udagram-frontend:$(date +%s)
+          && docker tag reverseproxy:latest dotrunghieu96/reverseproxy:$(date +%s)
+          
+      - name: Push to dockerhub
+        run:
+          docker push dotrunghieu96/udagram-api-feed:$(date +%s)
+          && docker push dotrunghieu96/udagram-api-user:$(date +%s)
+          && docker push dotrunghieu96/udagram-frontend:$(date +%s)
+          && docker push dotrunghieu96/reverseproxy:$(date +%s)
+
