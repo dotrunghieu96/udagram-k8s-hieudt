@@ -31,6 +31,7 @@ jobs:
           docker tag reverseproxy:latest dotrunghieu96/reverseproxy:$(date +%s)
           
       - name: Push to dockerhub
+        run:
           docker push dotrunghieu96/udagram-api-feed:$(date +%s)
           docker push dotrunghieu96/udagram-api-user:$(date +%s)
           docker push dotrunghieu96/udagram-frontend:$(date +%s)
