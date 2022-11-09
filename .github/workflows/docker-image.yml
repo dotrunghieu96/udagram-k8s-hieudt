@@ -25,15 +25,15 @@ jobs:
       - name: Build and tag docker images
         run:
           docker-compose -f docker-compose-build.yaml build
-          docker tag udagram-api-feed:latest dotrunghieu96/udagram-api-feed:$(date +%s)
-          docker tag udagram-api-user:latest dotrunghieu96/udagram-api-user:$(date +%s)
-          docker tag udagram-frontend:local dotrunghieu96/udagram-frontend:$(date +%s)
-          docker tag reverseproxy:latest dotrunghieu96/reverseproxy:$(date +%s)
+          && docker tag udagram-api-feed:latest dotrunghieu96/udagram-api-feed:$(date +%s)
+          && docker tag udagram-api-user:latest dotrunghieu96/udagram-api-user:$(date +%s)
+          && docker tag udagram-frontend:local dotrunghieu96/udagram-frontend:$(date +%s)
+          && docker tag reverseproxy:latest dotrunghieu96/reverseproxy:$(date +%s)
           
       - name: Push to dockerhub
         run:
           docker push dotrunghieu96/udagram-api-feed:$(date +%s)
-          docker push dotrunghieu96/udagram-api-user:$(date +%s)
-          docker push dotrunghieu96/udagram-frontend:$(date +%s)
-          docker push dotrunghieu96/reverseproxy:$(date +%s)
+          && docker push dotrunghieu96/udagram-api-user:$(date +%s)
+          && docker push dotrunghieu96/udagram-frontend:$(date +%s)
+          && docker push dotrunghieu96/reverseproxy:$(date +%s)
 
