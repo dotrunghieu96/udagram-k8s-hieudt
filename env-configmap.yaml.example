@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  AWS_BUCKET: udagram-hieudt-dev
+  AWS_PROFILE: default
+  AWS_REGION: us-east-1
+  URL: http://localhost:8100  
+metadata:
+  name: env-config
